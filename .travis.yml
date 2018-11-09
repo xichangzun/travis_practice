@@ -1,0 +1,11 @@
+language: python
+python:
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
+
+after_success:
+- ssh sp2 "cd xcz; ./auto.sh"
+addons:
+  ssh_known_hosts: 120.27.126.89:7788
