@@ -4,7 +4,7 @@ python:
 - '3.4'
 - '3.5'
 - '3.6'
-
+script:
 after_success:
 - ssh sp2 "cd xcz; ./auto.sh"
 addons:
