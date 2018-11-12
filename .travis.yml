@@ -3,7 +3,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_30d6474756b2_key -iv $encrypted_30d6474756b2_iv
   -in confidential.tar.enc -out confidential.tar -d
 - tar xvf confidential.tar
-- ls ～/.ssh
+- ls -a ~
 install:
 - pip install flake8
 python:
