@@ -1,16 +1,27 @@
 language: python
+
+env:
+  global:
+    secure: XeIdlq0mvGIK1MgqtgkVcL5w86msU3gMI11/NAppijRedNjNT8GwfMlFCLrQocK7QkgKm8ViDn3LdwohGb3aTZ8BYSquKxAwtbRgwRKRXTmMAf1lyW8Tq4Tk/9A79Gwuq/1hfEnYMx6OziYwaPZzSIk0RKHSicWuW6gvscHHCTosaZGqSTIBOxqnsvY9O1+ZRhLqVNjczuLTPV+iJ9ejtvW3WQraoMx+8Y8Or4gOU3U4bEV7y4Sv9hmHz3GRwIdAsLjKwZC5LZsz7QypD70+Sk2wY93FjqsBX3ayvTeaWzQ9lQ7C/1iGb2vF+zHUZmIeNhJsWVq3xEt8EjJ4dTZhjrTiEFmni0F9L2jRK5LrSiiF3UkfwmiPeObb50qH+Emu4X+QNfzDe0nLc+CX14owY+BSkv4Dob+znUxM7j+H+v5lP5T2D5IZHMWjEhHyXBvU/gicdWMeaCPLx7MEUw/21mlCN5QcVw7b1jSaCxkn6GTbhRJbwWAX/30DVWcNobLyjGoj1aAnM2z0gkVbNiWX0z3nctQUlH09R+Tl86qtegiUHcgYIpkkko/8Si/nul4JbfrTHU8MmrehBm1Dh4AQaLsD/9xm1a4W3P9YfTlyJwMTW0pxwuseIqYSAp9ja1ieyZHoSiUVhyiHmd88/cNZnmtrhEqqbxK9mPTVz/+cLMs=
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_30d6474756b2_key -iv $encrypted_30d6474756b2_iv
   -in confidential.tar.enc -out confidential.tar -d
-- tar xvf confidential.tar -C ~/.ssh
-- ls ~/.ssh
+- tar xvf confidential.tar
+- mv Users/xichangzun/.ssh/* ~/.ssh/
+
 install:
 - pip install flake8
+
 python:
 - '3.6'
+
 script:
 - true
+
 after_success:
 - ssh sp2 "cd xcz; ./auto.sh"
+
 addons:
-  ssh_known_hosts: sp2
+  ssh_known_hosts:
+    secure: XeIdlq0mvGIK1MgqtgkVcL5w86msU3gMI11/NAppijRedNjNT8GwfMlFCLrQocK7QkgKm8ViDn3LdwohGb3aTZ8BYSquKxAwtbRgwRKRXTmMAf1lyW8Tq4Tk/9A79Gwuq/1hfEnYMx6OziYwaPZzSIk0RKHSicWuW6gvscHHCTosaZGqSTIBOxqnsvY9O1+ZRhLqVNjczuLTPV+iJ9ejtvW3WQraoMx+8Y8Or4gOU3U4bEV7y4Sv9hmHz3GRwIdAsLjKwZC5LZsz7QypD70+Sk2wY93FjqsBX3ayvTeaWzQ9lQ7C/1iGb2vF+zHUZmIeNhJsWVq3xEt8EjJ4dTZhjrTiEFmni0F9L2jRK5LrSiiF3UkfwmiPeObb50qH+Emu4X+QNfzDe0nLc+CX14owY+BSkv4Dob+znUxM7j+H+v5lP5T2D5IZHMWjEhHyXBvU/gicdWMeaCPLx7MEUw/21mlCN5QcVw7b1jSaCxkn6GTbhRJbwWAX/30DVWcNobLyjGoj1aAnM2z0gkVbNiWX0z3nctQUlH09R+Tl86qtegiUHcgYIpkkko/8Si/nul4JbfrTHU8MmrehBm1Dh4AQaLsD/9xm1a4W3P9YfTlyJwMTW0pxwuseIqYSAp9ja1ieyZHoSiUVhyiHmd88/cNZnmtrhEqqbxK9mPTVz/+cLMs=
