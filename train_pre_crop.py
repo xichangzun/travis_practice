@@ -27,8 +27,11 @@ print_freq = 1
 vali_freq = 10
 
 testdir = '/data/ABUS_cache/Stomach_cancer/data/test'
-validir = '/data/ABUS_cache/Stomach_cancer/data/validate'
-traindir = '/data/ABUS_cache/Stomach_cancer/data/train'
+validir_old = '/data/ABUS_cache/Stomach_cancer/data/validate'
+traindir_old = '/data/ABUS_cache/Stomach_cancer/data/train'
+
+traindir_new = '/data/ABUS_stage2/Pathology/xcz/patch/train'
+validir_new = '/data/ABUS_stage2/Pathology/xcz/patch/valid'
 
 cudnn.enabled = True
 # Enables benchmark mode in cudnn, to enable the inbuilt cudnn auto-tuner
@@ -62,8 +65,8 @@ logger = Logger(log_path)
 normalize = transforms.Normalize(mean=[0.485, 0.456, 0.40],
                                  std=[0.229, 0.224, 0.225])
 
-train_dataset = datasets.ImageFolder(
-    traindir,
+train_dataset_old = datasets.ImageFolder(
+    traindir_old,
     transforms.Compose([
         transforms.RandomRotation(10),
         transforms.RandomResizedCrop(224),
@@ -73,6 +76,18 @@ train_dataset = datasets.ImageFolder(
         transforms.ToTensor(),
         normalize,
     ]))
+train_dataset_new = datasets.ImageFolder(
+    traindir_new,
+    transforms.Compose([
+        transforms.RandomRotation(10),
+        transforms.RandomResizedCrop(224),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomVerticalFlip(),
+        transforms.ColorJitter(brightness=0.1, saturation=0.5, contrast=0.5, hue=0.05),
+        transforms.ToTensor(),
+        normalize,
+    ]))
+train_dataset = train_dataset_old + train_dataset_new
 train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size,
                                            shuffle=True, pin_memory=True, num_workers=12)
 
@@ -85,13 +100,20 @@ test_dataset = datasets.ImageFolder(
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=args.batch_size,
                                           shuffle=False, pin_memory=True, num_workers=12)
 
-vail_dataset = datasets.ImageFolder(
-    validir,
+vali_dataset_old = datasets.ImageFolder(
+    validir_old,
     transforms.Compose([
         transforms.ToTensor(),
         normalize,
     ]))
-vali_loader = torch.utils.data.DataLoader(vail_dataset, batch_size=args.batch_size,
+vali_dataset_new = datasets.ImageFolder(
+    validir_new,
+    transforms.Compose([
+        transforms.ToTensor(),
+        normalize,
+    ]))
+vali_dataset = vali_dataset_new + vali_dataset_old
+vali_loader = torch.utils.data.DataLoader(vali_dataset, batch_size=args.batch_size,
                                           shuffle=False, pin_memory=True, num_workers=12)
 
 best_accu = 0
