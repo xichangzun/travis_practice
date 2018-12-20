@@ -39,15 +39,15 @@ cudnn.enabled = True
 cudnn.benchmark = True
 
 parser = argparse.ArgumentParser(description='StomachCancer Training')
-parser.add_argument('--learning_rate', '-lr', default=1e-2, type=float, help='learning rate')
+parser.add_argument('--learning_rate', '-lr', default=1e-3, type=float, help='learning rate')
 parser.add_argument('--weight_decay', '-wd', default=1e-3, type=float, help='weight decay')
 parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
 parser.add_argument('--ckpt_path', '-ckpt', default='', help='checkpoint path to load')
 parser.add_argument('--ckpt_path_save', '-ckpt_s', default='ckpt/', help='checkpoint path to save')
 parser.add_argument('--start_epoch', '-s', default=0, type=int, help='start epoch')
-parser.add_argument('--end_epoch', '-end', default=1500, type=int, help='end epoch')
+parser.add_argument('--end_epoch', '-end', default=180, type=int, help='end epoch')
 parser.add_argument('--batch_size', '-b', default=72, type=int, help='batch size')
-parser.add_argument('--step_size', '-ss', default=50, type=int, help='Period of learning rate decay. ')
+parser.add_argument('--step_size', '-ss', default=60, type=int, help='Period of learning rate decay. ')
 parser.add_argument('--log_path', '-lp', default='./log/', help='log path')
 parser.add_argument('--experiment_id', '-eid', default='0', help='experiment id')
 parser.add_argument('-sgd', '--use_sgd', dest='sgd', action='store_true',
