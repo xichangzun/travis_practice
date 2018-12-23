@@ -136,7 +136,7 @@ def main():
     elif args.model_n == "inceptionv3":
         # select models : inceptionv3
         print("Using the Pre-train model {inceptionv3}")
-        model = inception_v3(pretrained=True, drop_rate=0.1, num_classes=2)
+        model = inception_v3(pretrained=True, num_classes=2)
     else:
         # select models : inceptionv4
         print("Using the Pre-train model {inceptionv4}")
