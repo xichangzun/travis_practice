@@ -233,7 +233,7 @@ def train(train_loader, model, criterion, optimizer, epoch, logger):
 
         # compute output
         output = model(input)
-        if type(output) == 'tuple':
+        if type(output) == tuple:
             output = output[0]
         loss = criterion(output, target)
 
