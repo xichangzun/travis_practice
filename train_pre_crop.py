@@ -94,6 +94,7 @@ train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_
 test_dataset = datasets.ImageFolder(
     testdir,
     transforms.Compose([
+        transforms.Resize(299),
         transforms.ToTensor(),
         normalize,
     ]))
@@ -103,12 +104,14 @@ test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=args.batch_si
 vali_dataset_old = datasets.ImageFolder(
     validir_old,
     transforms.Compose([
+        transforms.Resize(299),
         transforms.ToTensor(),
         normalize,
     ]))
 vali_dataset_new = datasets.ImageFolder(
     validir_new,
     transforms.Compose([
+        transforms.Resize(299),
         transforms.ToTensor(),
         normalize,
     ]))
