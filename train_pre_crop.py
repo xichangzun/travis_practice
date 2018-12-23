@@ -69,7 +69,7 @@ train_dataset_old = datasets.ImageFolder(
     traindir_old,
     transforms.Compose([
         transforms.RandomRotation(10),
-        transforms.RandomResizedCrop(256),
+        transforms.RandomResizedCrop(299),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
         transforms.ColorJitter(brightness=0.1, saturation=0.5, contrast=0.5, hue=0.05),
@@ -80,7 +80,7 @@ train_dataset_new = datasets.ImageFolder(
     traindir_new,
     transforms.Compose([
         transforms.RandomRotation(10),
-        transforms.RandomResizedCrop(256),
+        transforms.RandomResizedCrop(299),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
         transforms.ColorJitter(brightness=0.1, saturation=0.5, contrast=0.5, hue=0.05),
