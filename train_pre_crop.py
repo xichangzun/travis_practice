@@ -39,7 +39,7 @@ cudnn.enabled = True
 cudnn.benchmark = True
 
 parser = argparse.ArgumentParser(description='StomachCancer Training')
-parser.add_argument('--learning_rate', '-lr', default=1e-2, type=float, help='learning rate')
+parser.add_argument('--learning_rate', '-lr', default=1e-3, type=float, help='learning rate')
 parser.add_argument('--weight_decay', '-wd', default=1e-3, type=float, help='weight decay')
 parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
 parser.add_argument('--ckpt_path', '-ckpt', default='', help='checkpoint path to load')
@@ -88,7 +88,7 @@ train_dataset_new = datasets.ImageFolder(
         normalize,
     ]))
 train_dataset = train_dataset_old + train_dataset_new
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size,
+train_loader = torch.utils.data.DataLoader(train_dataset_old, batch_size=args.batch_size,
                                            shuffle=True, pin_memory=True, num_workers=12)
 
 test_dataset = datasets.ImageFolder(
@@ -116,7 +116,7 @@ vali_dataset_new = datasets.ImageFolder(
         normalize,
     ]))
 vali_dataset = vali_dataset_new + vali_dataset_old
-vali_loader = torch.utils.data.DataLoader(vali_dataset, batch_size=args.batch_size,
+vali_loader = torch.utils.data.DataLoader(vali_dataset_old, batch_size=args.batch_size,
                                           shuffle=False, pin_memory=True, num_workers=12)
 
 best_accu = 0
