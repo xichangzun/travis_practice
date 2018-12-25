@@ -161,7 +161,7 @@ def main():
                                weight_decay=args.weight_decay,
                                amsgrad=False,
                                l2_reg=False)
-        lambda1 = lambda epoch: 1 / math.sqrt(epoch)
+        lambda1 = lambda epoch: 1 / math.sqrt(epoch+1)
         scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda1)
 
     # use mutil process model
