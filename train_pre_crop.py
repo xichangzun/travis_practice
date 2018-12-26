@@ -39,7 +39,7 @@ cudnn.enabled = True
 cudnn.benchmark = True
 
 parser = argparse.ArgumentParser(description='StomachCancer Training')
-parser.add_argument('--learning_rate', '-lr', default=1e-3, type=float, help='learning rate')
+parser.add_argument('--learning_rate', '-lr', default=1e-2, type=float, help='learning rate')
 parser.add_argument('--weight_decay', '-wd', default=1e-3, type=float, help='weight decay')
 parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
 parser.add_argument('--ckpt_path', '-ckpt', default='', help='checkpoint path to load')
@@ -69,7 +69,7 @@ train_dataset_old = datasets.ImageFolder(
     traindir_old,
     transforms.Compose([
         transforms.RandomRotation(10),
-        transforms.RandomResizedCrop(299),
+        transforms.Resize(299),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
         transforms.ColorJitter(brightness=0.1, saturation=0.5, contrast=0.5, hue=0.05),
@@ -80,7 +80,7 @@ train_dataset_new = datasets.ImageFolder(
     traindir_new,
     transforms.Compose([
         transforms.RandomRotation(10),
-        transforms.RandomResizedCrop(299),
+        transforms.Resize(299),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
         transforms.ColorJitter(brightness=0.1, saturation=0.5, contrast=0.5, hue=0.05),
