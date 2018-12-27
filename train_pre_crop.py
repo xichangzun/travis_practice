@@ -167,8 +167,10 @@ def main():
     # use mutil process model
     model = torch.nn.DataParallel(model).cuda()
 
+    # class balance
+    weight_class = torch.Tensor([0.28,0.72])
     # define loss function and optimizer
-    criterion = nn.CrossEntropyLoss().cuda()
+    criterion = nn.CrossEntropyLoss(weight_class).cuda()
 
     start_epoch = args.start_epoch
     end_epoch = args.end_epoch
