@@ -30,7 +30,7 @@ testdir = '/data/ABUS_cache/Stomach_cancer/data/test'
 validir_old = '/data/ABUS_cache/Stomach_cancer/data/validate'
 traindir_old = '/data/ABUS_cache/Stomach_cancer/data/train'
 
-traindir_new = '/data/ABUS_stage2/Pathology/xcz/patch/train'
+traindir_new = '/data/ABUS_stage2/Pathology/xcz/new_patch/train'
 validir_new = '/data/ABUS_stage2/Pathology/xcz/patch/valid'
 
 cudnn.enabled = True
@@ -69,7 +69,7 @@ train_dataset_old = datasets.ImageFolder(
     traindir_old,
     transforms.Compose([
         transforms.RandomRotation(10),
-        transforms.Resize(299),
+        transforms.RandomResizedCrop(299,(0.5,1.0)),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
         transforms.ColorJitter(brightness=0.1, saturation=0.5, contrast=0.5, hue=0.05),
@@ -80,7 +80,7 @@ train_dataset_new = datasets.ImageFolder(
     traindir_new,
     transforms.Compose([
         transforms.RandomRotation(10),
-        transforms.Resize(299),
+        transforms.RandomResizedCrop(299,(0.5,1.0)),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
         transforms.ColorJitter(brightness=0.1, saturation=0.5, contrast=0.5, hue=0.05),
@@ -88,7 +88,7 @@ train_dataset_new = datasets.ImageFolder(
         normalize,
     ]))
 train_dataset = train_dataset_old + train_dataset_new
-train_loader = torch.utils.data.DataLoader(train_dataset_old, batch_size=args.batch_size,
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size,
                                            shuffle=True, pin_memory=True, num_workers=12)
 
 test_dataset = datasets.ImageFolder(
@@ -168,9 +168,9 @@ def main():
     model = torch.nn.DataParallel(model).cuda()
 
     # class balance
-    weight_class = torch.Tensor([0.28,0.72])
+    #weight_class = torch.Tensor([0.28,0.72])
     # define loss function and optimizer
-    criterion = nn.CrossEntropyLoss(weight_class).cuda()
+    criterion = nn.CrossEntropyLoss().cuda()
 
     start_epoch = args.start_epoch
     end_epoch = args.end_epoch
